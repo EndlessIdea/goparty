@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	ErrTimeout = errors.New("execute timeout")
+	ErrTimeout = errors.New("execute task timeout")
 )
 
 func ExeWithTimeout(timeout time.Duration, task func() error) error {
