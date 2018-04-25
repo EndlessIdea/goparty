@@ -8,6 +8,7 @@ import (
 	"os"
 	"strings"
 	"os/exec"
+	"flag"
 )
 
 var (
@@ -96,7 +97,12 @@ func getDaoField(lineInfo []string) (daoField string, err error) {
 }
 
 func main() {
-	//todo command args
+	args := flag.String("s", sourceFile, "the origin schema file")
+	argo := flag.String("o", targetFile, "the generated dao file")
+	flag.Parse()
+	sourceFile = *args
+	targetFile = *argo
+	fmt.Println(sourceFile, targetFile)
 
 	sf, err := os.Open(sourceFile)
 	if err != nil {
