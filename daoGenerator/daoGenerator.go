@@ -13,7 +13,7 @@ import (
 
 var (
 	sourceFile = "db.sql"
-	targetFile = "model.go"
+	targetFile = "dao.go"
 	daoSuffix  = "Dao"
 )
 
@@ -102,7 +102,7 @@ func main() {
 	flag.Parse()
 	sourceFile = *args
 	targetFile = *argo
-	fmt.Println(sourceFile, targetFile)
+	fmt.Printf("generate %s depend on schema file %s\n", targetFile, sourceFile)
 
 	sf, err := os.Open(sourceFile)
 	if err != nil {
@@ -115,11 +115,11 @@ func main() {
 		log.Fatalf("create target file error: %v\n", err)
 	}
 	defer tf.Close()
+
 	_, err = tf.WriteString("package dao\n\n")
 	if err != nil {
 		log.Fatalf("write target file error: %v\n", err)
 	}
-
 	scanner := bufio.NewScanner(sf)
 	for scanner.Scan() {
 		lineInfo := strings.Fields(strings.TrimSpace(scanner.Text()))
@@ -159,4 +159,15 @@ func main() {
 	if err := cmd.Start(); err != nil {
 		log.Fatalf("go fmt target file error: %v", err)
 	}
+	fmt.Println("generate success")
+
+	type Person struct {
+		Name string
+		Friends map[string]string
+	}
+	Lilei := Person{"Lilei", map[string]string{"HanMei": "classmate"}}
+	Mike := Lilei
+	Mike.Friends["Michael"] = "superstar"
+	fmt.Println(Lilei.Friends, Mike.Friends)
+	var c chan struct{}
 }
