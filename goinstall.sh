@@ -18,5 +18,6 @@ mv go /usr/local
 echo 'export GOROOT=/usr/local/go' >> ~/.bash_profile
 echo 'export GOPATH=/home/funkycoder/gopath' >> ~/.bash_profile
 echo 'PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >> ~/.bash_profile
+source ~/.bash_profile
 
 echo 'done'
